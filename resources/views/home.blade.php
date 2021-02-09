@@ -15,6 +15,9 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <br>
+                    <br>
+                    See all your <a href="{{ url('my_tickets')}}">tickets</a> or <a href="{{ url('new_ticket') }}">open a new ticket</a>
                 </div>
             </div>
         </div>
