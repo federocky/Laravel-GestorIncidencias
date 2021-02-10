@@ -26,3 +26,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/my_tickets', [TicketController::class, 'getTickets']);
 
 Route::get('/new_ticket', [TicketController::class, 'makeTicket']);
+
+Route::get('/my_tickets/ticket/{id}', [TicketController::class, 'show'])->name('ticket.show');
