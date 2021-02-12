@@ -32,3 +32,5 @@ Route::get('/new_ticket', [TicketController::class, 'create'])->name('ticket.cre
 Route::get('/my_tickets/ticket/{id}', [TicketController::class, 'show'])->name('ticket.show');
 
 Route::post('/ticket/store', [TicketController::class, 'store'])->name('ticket.store');
+
+Route::get('/id/{id}/status/{status}', [TicketController::class, 'update'])->name('ticket.update');

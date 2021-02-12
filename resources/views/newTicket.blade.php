@@ -18,18 +18,18 @@
             <label for="category">Category:</label>
             <select name="category" class="form-select mb-3" aria-label="Default select example">
 
-                @foreach($category as $category)
-                    <option  value="{{$category}}">{{$category}}</option>
-                @endforeach
+                <option  value="education">Education</option>
+                <option  value="business">Business</option>
+                <option  value="internet">Internet</option>
 
             </select>
 
             <label for="category">Pirority:</label>
             <select  name="priority" class="form-select" aria-label="Default select example">
 
-                @foreach($priority as $priority)
-                    <option  value="{{$priority}}">{{$priority}}</option>
-                @endforeach
+                <option  value="low">Low</option>
+                <option  value="medium">Medium</option>
+                <option  value="high">High</option>
 
                 {!! $errors->first('category', '<span style="color:red">:message<span>')!!}
             </select>

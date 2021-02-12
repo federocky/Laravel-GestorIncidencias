@@ -20,22 +20,21 @@ class TicketController extends Controller
         if($user->is_admin == 1) {
 
             $tickets = Ticket::all();
+            $is_admin = true;
 
         } else {
 
             $id = Auth::id();
             $tickets = Ticket::where('user_id', $id)->get();
+            $is_admin = false;
         }
 
-        return view('my_tickets', ['tickets' => $tickets]);
+        return view('my_tickets', ['tickets' => $tickets, 'is_admin' => $is_admin]);
     }
 
 
     public function create(){
-
-        $category = Ticket::orderBy('category', 'ASC')->distinct('category')->pluck('category');
-        $priority = Ticket::orderBy('priority', 'ASC')->distinct('priority')->pluck('priority');
-        return view('newTicket', ['category' => $category, 'priority' => $priority]);
+        return view('newTicket');
     }
 
 
@@ -67,6 +66,18 @@ class TicketController extends Controller
         $ticket->save();
 
         return redirect()->route('ticket.index')->with('info', 'Ticket creado correctamente');
+
+    }
+
+
+    public function update($id, $status){
+
+        
+        $ticket = Ticket::find($id);
+        $status == 'open' ? $ticket->status = 'closed' : $ticket->status = 'open';      
+        $ticket->save();
+        
+        return redirect()->route('ticket.index')->with('status', 'Ticket modificado correctamente');
 
     }
 }
