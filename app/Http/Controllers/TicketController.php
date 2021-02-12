@@ -4,20 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
-    //TODO: llamarle index
+
+    //TODO: llamarle index 
     public function getTickets(){
 
-        $tickets = Ticket::paginate();
+        //$tickets = Ticket::paginate();
+        $id = Auth::id();
+        $tickets = Ticket::where('user_id', $id)->get();
 
         return view('my_tickets', ['tickets' => $tickets]);
     }
 
     //TODO: llamarle create
     public function makeTicket(){
-        return view('newTicket');
+
+        $category = Ticket::orderBy('category', 'ASC')->distinct('category')->pluck('category');
+        $priority = Ticket::orderBy('priority', 'ASC')->distinct('priority')->pluck('priority');
+        return view('newTicket', ['category' => $category, 'priority' => $priority]);
     }
 
 
@@ -26,5 +33,29 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
 
         return view('ticket', compact('ticket'));
+    }
+
+
+    public function store(Request $request){
+
+        //recibimos el id del cliente.
+        $id = Auth::id();
+
+        $request->validate([
+            'title'     => 'required',
+            'text'      => 'required'
+        ]);
+
+        $ticket = new Ticket();
+        $ticket->title = $request->title;
+        $ticket->category = $request->category;
+        $ticket->priority = $request->priority;
+        $ticket->message = $request->text;
+        $ticket->user_id = $id;
+        $ticket->status = 'open';
+        $ticket->save();
+
+        return redirect()->route('tickets.get')->with('info', 'Ticket creado correctamente');
+
     }
 }

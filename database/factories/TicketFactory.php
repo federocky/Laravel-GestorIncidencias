@@ -28,7 +28,7 @@ class TicketFactory extends Factory
             'priority'  => $this->faker->randomElement(['low', 'medium', 'high']),
             'message'   => $this->faker->paragraph(),
             'status'    => $this->faker->randomElement(['open', 'closed']),
-            'user_id'   => 1
+            'user_id'   => $this->faker->randomElement([1, 2, 3, 4])
         ];
     }
 }

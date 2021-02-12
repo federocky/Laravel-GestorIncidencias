@@ -23,5 +23,6 @@
             @endforeach
         </tbody>
     </table>
-    {{ $tickets->links() }}
+
+    {{-- {{ $tickets->links() }} --}}
 @endsection
