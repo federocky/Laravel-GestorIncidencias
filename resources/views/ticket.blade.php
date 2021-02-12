@@ -12,7 +12,7 @@
             <li class="list-group-item">Status: {{ $ticket->status }}</li>
             <li class="list-group-item">Created on: {{ $ticket->created_at }}</li>
         </ul>
-        <a class="btn btn-primary mt-2" href="{{route('tickets.get')}}" >Volver</a>
+        <a class="btn btn-primary mt-2" href="{{route('ticket.index')}}" >Volver</a>
         
     </div>
 

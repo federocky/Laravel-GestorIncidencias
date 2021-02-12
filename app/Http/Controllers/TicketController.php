@@ -9,18 +9,29 @@ use Illuminate\Support\Facades\Auth;
 class TicketController extends Controller
 {
 
-    //TODO: llamarle index 
-    public function getTickets(){
+    
+    public function index(){
 
         //$tickets = Ticket::paginate();
-        $id = Auth::id();
-        $tickets = Ticket::where('user_id', $id)->get();
+
+        $user = Auth::user();
+        //dd($user);
+
+        if($user->is_admin == 1) {
+
+            $tickets = Ticket::all();
+
+        } else {
+
+            $id = Auth::id();
+            $tickets = Ticket::where('user_id', $id)->get();
+        }
 
         return view('my_tickets', ['tickets' => $tickets]);
     }
 
-    //TODO: llamarle create
-    public function makeTicket(){
+
+    public function create(){
 
         $category = Ticket::orderBy('category', 'ASC')->distinct('category')->pluck('category');
         $priority = Ticket::orderBy('priority', 'ASC')->distinct('priority')->pluck('priority');
@@ -55,7 +66,7 @@ class TicketController extends Controller
         $ticket->status = 'open';
         $ticket->save();
 
-        return redirect()->route('tickets.get')->with('info', 'Ticket creado correctamente');
+        return redirect()->route('ticket.index')->with('info', 'Ticket creado correctamente');
 
     }
 }

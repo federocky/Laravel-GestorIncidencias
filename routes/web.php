@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TicketController;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Route;
@@ -21,12 +22,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('/my_tickets', [TicketController::class, 'getTickets'])->name('tickets.get');
+Route::get('/my_tickets', [TicketController::class, 'index'])->name('ticket.index');
 
-Route::get('/new_ticket', [TicketController::class, 'makeTicket']);
+Route::get('/new_ticket', [TicketController::class, 'create'])->name('ticket.create');
 
 Route::get('/my_tickets/ticket/{id}', [TicketController::class, 'show'])->name('ticket.show');
 
